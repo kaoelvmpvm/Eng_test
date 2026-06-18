@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffb84d">
+  <title>Reading Quiz｜Billy's Party</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #27364a;
+      --muted: #66758a;
+      --paper: #fffdf8;
+      --yellow: #ffca57;
+      --orange: #ff9f43;
+      --peach: #fff0d9;
+      --teal: #49b7ae;
+      --teal-soft: #e7f8f5;
+      --purple: #8066c9;
+      --line: #e8dfd0;
+      --shadow: 0 18px 45px rgba(93, 71, 38, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Nunito", "Noto Sans TC", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 202, 87, .38) 0 7px, transparent 8px),
+        radial-gradient(circle at 92% 14%, rgba(73, 183, 174, .28) 0 8px, transparent 9px),
+        radial-gradient(circle at 6% 85%, rgba(128, 102, 201, .18) 0 6px, transparent 7px),
+        linear-gradient(145deg, #fff8e8 0%, #f7fbff 48%, #fff7ef 100%);
+      background-size: 72px 72px, 90px 90px, 82px 82px, auto;
+      padding: 28px 16px 48px;
+    }
+
+    .worksheet {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(222, 204, 174, .85);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .top-band {
+      position: relative;
+      padding: 34px 42px 30px;
+      color: #fff;
+      background: linear-gradient(120deg, #ffad42 0%, #ffca57 54%, #ffd979 100%);
+      overflow: hidden;
+    }
+
+    .top-band::before,
+    .top-band::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .24);
+    }
+
+    .top-band::before { width: 180px; height: 180px; right: -45px; top: -82px; }
+    .top-band::after { width: 92px; height: 92px; left: -22px; bottom: -38px; }
+
+    .header-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .unit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+      padding: 7px 13px;
+      color: #8d570d;
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #5e3a0a;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: #805316;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .party-badge {
+      flex: 0 0 auto;
+      width: 116px;
+      height: 116px;
+      display: grid;
+      place-items: center;
+      font-size: 58px;
+      background: rgba(255,255,255,.9);
+      border: 5px solid rgba(255,255,255,.55);
+      border-radius: 32px;
+      transform: rotate(4deg);
+      box-shadow: 0 10px 20px rgba(126, 82, 13, .15);
+    }
+
+    .content { padding: 30px 42px 42px; }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-field {
+      min-height: 45px;
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      padding: 6px 2px;
+      border-bottom: 2px solid #dccfb8;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .info-field span:last-child { flex: 1; min-width: 45px; }
+
+    .instruction {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding: 15px 18px;
+      background: var(--teal-soft);
+      border: 1px solid #c9ece6;
+      border-radius: 18px;
+    }
+
+    .instruction-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: #fff;
+      border-radius: 13px;
+      font-size: 23px;
+      box-shadow: 0 5px 12px rgba(64, 152, 142, .12);
+    }
+
+    .instruction strong { display: block; color: #247e77; font-size: 16px; }
+    .instruction p { margin: 2px 0 0; color: #52736f; font-size: 14px; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .number-tag {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--purple);
+      border-radius: 10px;
+      font-size: 14px;
+      box-shadow: 0 5px 10px rgba(128, 102, 201, .22);
+    }
+
+    .reading-card {
+      position: relative;
+      margin-bottom: 28px;
+      padding: 28px 30px 27px;
+      background:
+        linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9)),
+        repeating-linear-gradient(0deg, transparent 0 34px, #e8eef5 35px 36px);
+      border: 2px solid #f0d79b;
+      border-radius: 23px;
+      box-shadow: 0 8px 20px rgba(133, 103, 40, .08);
+    }
+
+    .reading-card::before {
+      content: "READ";
+      position: absolute;
+      right: 18px;
+      top: -14px;
+      padding: 7px 13px;
+      color: #fff;
+      background: var(--orange);
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      transform: rotate(2deg);
+    }
+
+    .reading-text {
+      margin: 0;
+      color: #34455d;
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(24px, 4.2vw, 33px);
+      font-weight: 600;
+      line-height: 1.48;
+      letter-spacing: .01em;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .question-card {
+      padding: 21px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 7px 18px rgba(79, 67, 48, .06);
+    }
+
+    .question-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 0 0 15px;
+      color: #27364a;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.42;
+    }
+
+    .q-number {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #8b5a10;
+      background: #fff1c8;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 52px;
+      padding: 11px 14px;
+      color: #46556b;
+      background: #fbfaf7;
+      border: 1.5px solid #e6dfd4;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .choice:hover {
+      transform: translateY(-2px);
+      border-color: #f0b95d;
+      background: #fffaf0;
+      box-shadow: 0 7px 14px rgba(159, 113, 38, .09);
+    }
+
+    .choice input {
+      width: 19px;
+      height: 19px;
+      margin: 0;
+      flex: 0 0 auto;
+      accent-color: var(--orange);
+    }
+
+    .choice-text {
+      font-family: "Dancing Script", cursive;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .choice:has(input:checked) {
+      color: #6d4608;
+      background: #fff4d9;
+      border-color: #f2b84f;
+      box-shadow: 0 0 0 3px rgba(255, 184, 77, .14);
+    }
+
+    .footer-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 25px;
+      padding-top: 19px;
+      color: #7d8998;
+      border-top: 1px dashed #d9cfbf;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .stars { color: #f0a428; letter-spacing: 3px; font-size: 17px; }
+
+    @media (max-width: 680px) {
+      body { padding: 12px 10px 30px; }
+      .worksheet { border-radius: 20px; }
+      .top-band { padding: 27px 23px 24px; }
+      .party-badge { width: 83px; height: 83px; border-radius: 23px; font-size: 42px; }
+      .subtitle { font-size: 14px; }
+      .content { padding: 24px 18px 30px; }
+      .student-info { grid-template-columns: 1fr 1fr; }
+      .student-info .info-field:first-child { grid-column: 1 / -1; }
+      .reading-card { padding: 25px 20px 22px; }
+      .choices { grid-template-columns: 1fr; }
+      .footer-note { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .worksheet { max-width: none; border: 0; border-radius: 0; box-shadow: none; }
+      .choice:hover { transform: none; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="worksheet">
+    <header class="top-band">
+      <div class="header-row">
+        <div>
+          <div class="unit-pill">📘 English Reading Practice</div>
+          <h1>Billy's Party</h1>
+          <p class="subtitle">Read, find the details, and choose the best answer.</p>
+        </div>
+        <div class="party-badge" aria-hidden="true">🎉</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="student-info" aria-label="Student information">
+        <div class="info-field"><span>✏️ Name</span><span></span></div>
+        <div class="info-field"><span>Class</span><span></span></div>
+        <div class="info-field"><span>Date</span><span></span></div>
+      </section>
+
+      <section class="instruction">
+        <div class="instruction-icon" aria-hidden="true">👀</div>
+        <div>
+          <strong>Reading Mission</strong>
+          <p>Read the passage carefully. Then choose one answer for each question.</p>
+        </div>
+      </section>
+
+      <h2 class="section-label"><span class="number-tag">A</span> Read the passage</h2>
+      <article class="reading-card">
+        <p class="reading-text">
+          It's eight o'clock, and I am at Billy's party.<br>
+          Many boys and girls are dancing. Billy is<br>
+          singing with his sister, Zoe. She is so cute!<br>
+          How about their parents? They're eating<br>
+          and talking. It's a great party.
+        </p>
+      </article>
+
+      <h2 class="section-label"><span class="number-tag">B</span> Choose the best answer</h2>
+      <form class="question-list">
+        <section class="question-card">
+          <h3 class="question-title"><span class="q-number">1</span><span>What time is the party happening?</span></h3>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q1" value="seven"><span class="choice-text">Seven o'clock</span></label>
+            <label class="choice"><input type="radio" name="q1" value="eight"><span class="choice-text">Eight o'clock</span></label>
+            <label class="choice"><input type="radio" name="q1" value="nine"><span class="choice-text">Nine o'clock</span></label>
+            <label class="choice"><input type="radio" name="q1" value="ten"><span class="choice-text">Ten o'clock</span></label>
+          </div>
+        </section>
+
+        <section class="question-card">
+          <h3 class="question-title"><span class="q-number">2</span><span>Who is singing with Billy?</span></h3>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q2" value="boys-girls"><span class="choice-text">Many boys and girls</span></label>
+            <label class="choice"><input type="radio" name="q2" value="parents"><span class="choice-text">His parents</span></label>
+            <label class="choice"><input type="radio" name="q2" value="zoe"><span class="choice-text">His sister, Zoe</span></label>
+            <label class="choice"><input type="radio" name="q2" value="teacher"><span class="choice-text">His teacher</span></label>
+          </div>
+        </section>
+
+        <section class="question-card">
+          <h3 class="question-title"><span class="q-number">3</span><span>What are the parents doing at the party?</span></h3>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="q3" value="dance-sing"><span class="choice-text">Dancing and singing</span></label>
+            <label class="choice"><input type="radio" name="q3" value="eat-talk"><span class="choice-text">Eating and talking</span></label>
+            <label class="choice"><input type="radio" name="q3" value="sleep-rest"><span class="choice-text">Sleeping and resting</span></label>
+            <label class="choice"><input type="radio" name="q3" value="movie"><span class="choice-text">Watching a movie</span></label>
+          </div>
+        </section>
+      </form>
+
+      <footer class="footer-note">
+        <span>Tip: Underline the words in the passage that help you answer.</span>
+        <span class="stars" aria-label="three stars">★ ★ ★</span>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
